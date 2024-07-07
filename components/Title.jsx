@@ -3,10 +3,10 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 
 export default function Title() {
-  const navigation = useNavigation();
+  const navigation = useNavigation({navigation});
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
       <View style={styles.menu}>
       <Image source={require("../assets/Menu.png")} />
       </View>

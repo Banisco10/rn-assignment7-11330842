@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, FlatList } from 'react-native'
 import React, { useState } from 'react'
 import ProductlistCard from './ProductlistCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ProductDetailCard from './ProductDetailCard';
 
 
 
@@ -16,6 +17,7 @@ export default function Productlist() {
     { id: '7', job_title: '21WN', prize: '$120', companyName: 'reversible angora cardigan', image: require('../assets/dress7.png')},
     { id: '8', job_title: 'lame', prize: '$120', companyName: 'reversible angora cardigan', image: require('../assets/dress3.png')},
   ];
+  const [selectedProductlist, setselectedProductlist] = useState(null);
   
   const addToCart = async(product) => {
     let DATA = await AsyncStorage.getItem('DATA');
@@ -24,7 +26,20 @@ export default function Productlist() {
     DATA.push(uniqueProduct);
     await AsyncStorage.setItem('DATA', JSON.stringify(DATA));
   };
-  const [selectedProductlist, setselectedProductlist] = useState(null);
+
+  const productDetails = async(product) => {
+    let DATA = await AsyncStorage.getItem('DATA');
+    DATA = DATA ? JSON.parse(DATA) : [];
+
+    const productExists = DATA.some(item => item.id === product.id);
+
+    if (!productExists) {
+      const uniqueProduct = {...product, id: Date.now().toString()};
+      DATA.push(uniqueProduct);
+      await AsyncStorage.setItem('DATA', JSON.stringify(DATA));
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.productTitle}>
@@ -50,13 +65,19 @@ export default function Productlist() {
       >
         {DATA.map((item) => (
           <ProductlistCard
-          data = {DATA}
           key={item.id}
           item = {item}
           addToCart={addToCart}
-          selectedProductlist={selectedProductlist}
+          productDetails={productDetails}
+          
            /> 
            ))}
+
+      <FlatList
+        data={DATA}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item }) => <ProductDetailCard item={item} />}
+      />           
       </ScrollView>
     </View>
   )

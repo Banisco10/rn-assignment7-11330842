@@ -20,6 +20,7 @@ export default function ProductBottomTab() {
 const styles = StyleSheet.create({
     container: {
         height: 50,
+        margin: 10,
         backgroundColor: 'black',
         flexDirection: 'row',
         paddingHorizontal: 20,

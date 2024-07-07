@@ -2,35 +2,35 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const ProductlistCard = ( { item, selectedPopularJobs, addToCart }) => {
+const ProductlistCard = ( { item, selectedPopularJobs, addToCart}) => {
   const navigation = useNavigation();
 
-  const navigateToProductDetail = () => {
-    navigation.navigate('ProductDetailScreen', { itemId: item.id });
+  const handlePress = async() => {
+    navigation.navigate('ProductDetailScreen');
   };
+
 
   return (
     <View style={styles.container(selectedPopularJobs, item)}>
-      <TouchableOpacity onPress={navigateToProductDetail}>
-      <View style={styles.infoContainer}>
-      <Image style={styles.image} source={item.image}/>
+      <TouchableOpacity onPress={handlePress}>
+        <View style={styles.infoContainer}>
+          <Image style={styles.image} source={item.image}/>
 
-      <TouchableOpacity style={styles.add} onPress={() => addToCart(item)}>
-      <Image source={require("../assets/add_circle.png")}/>
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.add} onPress={() => addToCart(item)}>
+            <Image source={require("../assets/add_circle.png")}/>
+          </TouchableOpacity>
 
-      <View style={styles.descriptionsContainer}>
-        <View style={styles.amount}>
-        <Text style={styles.jobName(selectedPopularJobs, item)} numberOfLines={1}>{item.job_title}</Text>
-        <Text style={styles.companyName} numberOfLines={2}>{item.companyName}</Text>
+          <View style={styles.descriptionsContainer}>
+            <View style={styles.amount}>
+              <Text style={styles.jobName(selectedPopularJobs, item)} numberOfLines={1}>{item.job_title}</Text>
+              <Text style={styles.companyName} numberOfLines={2}>{item.companyName}</Text>
+            </View>
+
+            <View style={styles.details}>
+              <Text style={styles.prize} numberOfLines={1}>{item.prize}</Text>
+            </View>
+          </View>
         </View>
-
-        <View style={styles.details}>
-        <Text style={styles.prize} numberOfLines={1}>{item.prize}</Text>
-        </View>
-        
-      </View>
-      </View> 
       </TouchableOpacity>
     </View>
   )
