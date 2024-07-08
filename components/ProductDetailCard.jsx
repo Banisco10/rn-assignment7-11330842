@@ -61,8 +61,13 @@ export default function ProductDetailCard({job_title, image, navigation}) {
           </View>
           <View style={styles.directions}>
             <Image style={styles.directImage} source={require("../assets/Iron Low Temperature.png")} />
-            <Text style={styles.directText}>Iron at a maximum of 100C/230F </Text>
+            <Text style={styles.directText}>Iron at a maximum of 100{'\u00B0'}C/230{'\u00B0'}F </Text>
           </View>
+
+          <View style={styles.options}>
+          <View style={styles.line} />
+        </View>
+
           <View style={styles.deliveryContainer}>
               <View style={styles.delivery}>
                 <View style={styles.car}>
@@ -176,6 +181,18 @@ const styles = StyleSheet.create({
   },
   materialText: {
     fontSize: 16,
-  }
+  },
+  options: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "#AFB0B6",
+    marginRight: 10,
+  },
 
 })

@@ -14,6 +14,7 @@ import ElectronicScreen from './pages/ElectronicScreen';
 import ClothingScreen from './pages/ClothingScreen';
 import ProductDetailScreen from './pages/ProductDetailScreen';
 import 'react-native-gesture-handler';
+import CustomDrawerContent from './components/CustomerDrawer';
 
 
 const StackNav=()=> {
@@ -31,7 +32,7 @@ const StackNav=()=> {
 const DrawerNav=()=> {
   const Drawer = createDrawerNavigator();
   return (
-      <Drawer.Navigator>
+      <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
         <Drawer.Screen name='Home' component={StackNav} options={{headerShown: false}} />
         <Drawer.Screen name='Store' component={StoreScreen}/>
         <Drawer.Screen name='Locations' component={LocationsScreen}  />
@@ -57,7 +58,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
     image: {
-      width: 25,
+      width: 35,
       height: 25,
     }
 });

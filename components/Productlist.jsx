@@ -31,7 +31,6 @@ export default function Productlist() {
     fetchProduct()
   }, [])
 
-console.log(data)
 
   const addToCart = async(product) => {
     let DATA = await AsyncStorage.getItem('DATA');
