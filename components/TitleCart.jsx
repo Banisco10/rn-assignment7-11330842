@@ -40,7 +40,7 @@ const styles = StyleSheet.create ({
     width: 35,
     borderRadius: 18,
     marginRight: 8,
-    backgroundColor: 'rgb(235,235,235)'
+    //backgroundColor: 'rgb(235,235,235)'
   },
   image: {
     marginTop: 5,

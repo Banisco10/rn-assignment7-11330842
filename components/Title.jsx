@@ -52,14 +52,14 @@ const styles = StyleSheet.create ({
     width: 35,
     borderRadius: 18,
     marginRight: 8,
-     backgroundColor: 'rgb(235,235,235)'
+    //backgroundColor: 'rgb(235,235,235)'
   },
   bagTitle: {
     height: 35,
     width: 35,
     borderRadius: 18,
     marginRight: 15,
-    backgroundColor: 'rgb(235,235,235)'
+    //backgroundColor: 'rgb(235,235,235)'
   },
   image: {
     marginTop: 5,
