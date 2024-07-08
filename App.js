@@ -47,7 +47,7 @@ const DrawerNav=()=> {
 
 export default function App() {
   return (
-    <NavigationContainer initialRouteName> 
+    <NavigationContainer initialRouteName="Home"> 
       <DrawerNav />
     </NavigationContainer>
     

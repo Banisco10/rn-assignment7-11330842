@@ -1,24 +1,44 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import {useRoute} from '@react-navigation/native'
 
-export default function ProductDetailCard() {
+export default function ProductDetailCard({job_title, image, navigation}) {
+  const {id} = useRoute().params
+  const [productDetails, setproductDetails] = useState([]);
+
+  const fetchProductDetails = async() => {
+    const response = await fetch(`https://fakestoreapi.com/products/${id}`)
+    const data = await response.json()
+    setproductDetails(data)
+  }
+
+  useEffect(() => {
+    fetchProductDetails()
+  }, [])
+  
+  console.log(productDetails)
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-      <Image style={styles.image} source={require("../assets/dress4.png")} />
+      <Image style={styles.image} source={{uri: productDetails.image}} />
       </View>
 
     <View style={styles.descriptionContainer}>
       <View style={styles.infoName}>
-        <Text style={styles.name}>LAMEREI</Text>
+        <Text style={styles.title}>{productDetails.title}</Text>
         <TouchableOpacity>
         <Image style={styles.export} source={require("../assets/Export.png")} />
         </TouchableOpacity>
       </View>
 
       <View style={styles.priceContainer}>
-        <Text style={styles.description}>Recycle Bouncle Knit Cardigan</Text>
-        <Text style={styles.price}>$120</Text>
+        <Text style={styles.description}>{productDetails.description}</Text>
+        <Text style={styles.price}>${productDetails.price}</Text>  
+      </View>
+
+      <View style={styles.rating}>
+        <Text style={styles.count}>{productDetails.count}</Text>
+        <Text style={styles.rate}>{productDetails.rate}</Text>
       </View>
 
       <View style={styles.materialContainer} >
@@ -68,7 +88,8 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingBottom: 200,
   },
   imageContainer: {
     width: '90%',
@@ -81,15 +102,16 @@ const styles = StyleSheet.create({
     height: '40%',
     width: '100%',
     padding: 10,
+    marginTop: -50,
   },
   infoName: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   image: {
-    height: 420,
-    width: 600,
-    resizeMode: 'contain',
+    height: 310,
+    width: 280,
+    
   },
   price: {
     fontSize: 18,
@@ -126,6 +148,34 @@ const styles = StyleSheet.create({
   estimateContainer: {
     width: '70%',
     marginLeft: 36,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: '#333',
+  },
+  priceContainer: {
+    marginTop: 10,
+  },
+  price: {
+    color: '#daa520',
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  description: {
+    fontSize: 16,
+    color: '#333',
+  },
+  material: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+  },
+  materialText: {
+    fontSize: 16,
   }
 
 })

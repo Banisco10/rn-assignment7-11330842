@@ -5,13 +5,13 @@ const ProductCard = ( { item, selectedPopularJobs, removeFromCart }) => {
   return (
     <View style={styles.container(selectedPopularJobs, item)}>
       <View style={styles.infoContainer}>
-      <Image style={styles.image} source={item.image}/>
+      <Image style={styles.image} source={{uri: item.image}}/>
 
       <View style={styles.descriptionsContainer}>
         <View style={styles.amount}>
-        <Text style={styles.jobName(selectedPopularJobs, item)} numberOfLines={1}>{item.job_title}</Text>
-        <Text style={styles.companyName} numberOfLines={1}>{item.companyName}</Text>
-        <Text style={styles.prize} numberOfLines={1}>{item.prize}</Text>
+        <Text style={styles.jobName(selectedPopularJobs, item)} numberOfLines={1}>{item.title}</Text>
+        <Text style={styles.companyName} numberOfLines={1}>{item.category}</Text>
+        <Text style={styles.prize} numberOfLines={1}>${item.price}</Text>
         </View>
 
       <TouchableOpacity onPress={() => removeFromCart(item)}>

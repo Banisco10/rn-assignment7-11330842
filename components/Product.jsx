@@ -29,7 +29,7 @@ export default function Product() {
     }, []);
 
     const calculateTotal = () =>{
-      return DATA.reduce((sum, item) => sum + parseFloat(item.prize.replace('$', '')), 0);
+      return DATA.reduce((sum, item) => sum + parseFloat(item.price), 0);
     };
 
   return (

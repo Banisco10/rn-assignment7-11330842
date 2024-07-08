@@ -1,24 +1,38 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, FlatList } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, FlatList, ActivityIndicator } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import ProductlistCard from './ProductlistCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ProductDetailCard from './ProductDetailCard';
+import axios from 'axios';
+
 
 
 
 export default function Productlist() {
-  const DATA = [
-    { id: '1', job_title: 'Office Wear', prize: '$120', companyName: 'reversible angora cardigan', image: require('../assets/dress1.png')},
-    { id: '2', job_title: 'Black', prize: '$120', companyName: 'reversible angora cardigan',  image: require('../assets/dress2.png')},
-    { id: '3', job_title: 'Church Wear', prize: '$120', companyName: 'reversible angora cardigan', image: require('../assets/dress3.png')},
-    { id: '4', job_title: 'Lamerei', prize: '$120', companyName: 'reversible angora cardigan',  image: require('../assets/dress4.png')},
-    { id: '5', job_title: '21WN', prize: '$120', companyName: 'reversible angora cardigan', image: require('../assets/dress5.png')},
-    { id: '6', job_title: 'Lopo', prize: '$120', companyName: 'reversible angora cardigan', image: require('../assets/dress6.png')},
-    { id: '7', job_title: '21WN', prize: '$120', companyName: 'reversible angora cardigan', image: require('../assets/dress7.png')},
-    { id: '8', job_title: 'lame', prize: '$120', companyName: 'reversible angora cardigan', image: require('../assets/dress3.png')},
-  ];
+
+  const [data, setData] = useState([]);
+
+
+  const fetchProduct = async() => {
+    axios.get('https://fakestoreapi.com/products').then((res) => {
+      setData(res.data);
+      
+    })
+  } 
+
+
   const [selectedProductlist, setselectedProductlist] = useState(null);
-  
+  const [products, setProducts] = useState([]
+    
+  )
+  const [loading, setLoading] = useState(true)
+
+
+  useEffect(() => {
+    fetchProduct()
+  }, [])
+
+console.log(data)
+
   const addToCart = async(product) => {
     let DATA = await AsyncStorage.getItem('DATA');
     DATA = DATA ? JSON.parse(DATA) : [];
@@ -63,21 +77,16 @@ export default function Productlist() {
       <ScrollView contentContainerStyle = {styles.contentContainer}
        showsVerticalScrollIndicator={false}
       >
-        {DATA.map((item) => (
+        {data.map((item) => (
           <ProductlistCard
+          data = {data}
           key={item.id}
           item = {item}
           addToCart={addToCart}
           productDetails={productDetails}
-          
            /> 
-           ))}
+           ))}         
 
-      <FlatList
-        data={DATA}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => <ProductDetailCard item={item} />}
-      />           
       </ScrollView>
     </View>
   )
@@ -130,5 +139,10 @@ const styles = StyleSheet.create({
     image: {
       marginTop: 12,
       marginLeft: 12
+    },
+    loadingContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
 })

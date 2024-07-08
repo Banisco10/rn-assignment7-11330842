@@ -5,16 +5,16 @@ import { useNavigation } from '@react-navigation/native';
 const ProductlistCard = ( { item, selectedPopularJobs, addToCart}) => {
   const navigation = useNavigation();
 
-  const handlePress = async() => {
-    navigation.navigate('ProductDetailScreen');
+  const handlePress = async(id) => {
+    navigation.navigate('ProductDetailScreen', {id});
   };
 
 
   return (
     <View style={styles.container(selectedPopularJobs, item)}>
-      <TouchableOpacity onPress={handlePress}>
+      <TouchableOpacity onPress={() => handlePress(item.id)}>
         <View style={styles.infoContainer}>
-          <Image style={styles.image} source={item.image}/>
+          <Image style={styles.image} source={{uri: item.image}}/>
 
           <TouchableOpacity style={styles.add} onPress={() => addToCart(item)}>
             <Image source={require("../assets/add_circle.png")}/>
@@ -22,12 +22,12 @@ const ProductlistCard = ( { item, selectedPopularJobs, addToCart}) => {
 
           <View style={styles.descriptionsContainer}>
             <View style={styles.amount}>
-              <Text style={styles.jobName(selectedPopularJobs, item)} numberOfLines={1}>{item.job_title}</Text>
-              <Text style={styles.companyName} numberOfLines={2}>{item.companyName}</Text>
+              <Text style={styles.jobName(selectedPopularJobs, item)} numberOfLines={1}>{item.title}</Text>
+              <Text style={styles.companyName} numberOfLines={2}>{item.category}</Text>
             </View>
 
             <View style={styles.details}>
-              <Text style={styles.prize} numberOfLines={1}>{item.prize}</Text>
+              <Text style={styles.prize} numberOfLines={1}>${item.price}</Text>
             </View>
           </View>
         </View>
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
   container: (selectedPopularJobs, item) => ({
     backgroundColor: selectedPopularJobs === item.popularjobs ? '#FFFFFF' : '#FFFFFF',
     width: '49%',
-    height: 400,
-    marginTop: 40,
+    height: 300,
+    marginTop: 50,
     justifyContent: 'center',
     flexDirection: 'column',
     flexWrap: 'nowrap',
@@ -71,17 +71,20 @@ const styles = StyleSheet.create({
     color: '#daa520',
   },
   image: {
-    height: 300,
-    width: '100%',
-    marginTop: -20
+    height: 230,
+    width: 150,
+    marginTop: -20,
+    marginLeft: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   descriptionsContainer: {
   marginTop: 10
   },
   add: {
     position: 'absolute',
-    top: 240,
-    right: 10,
+    top: 170,
+    right: 15,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
