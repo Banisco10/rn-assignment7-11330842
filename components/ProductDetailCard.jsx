@@ -15,8 +15,6 @@ export default function ProductDetailCard({job_title, image, navigation}) {
   useEffect(() => {
     fetchProductDetails()
   }, [])
-  
-  console.log(productDetails)
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
