@@ -22,7 +22,7 @@ const ProductlistCard = ( { item, selectedPopularJobs, addToCart}) => {
 
           <View style={styles.descriptionsContainer}>
             <View style={styles.amount}>
-              <Text style={styles.jobName(selectedPopularJobs, item)} numberOfLines={1}>{item.title}</Text>
+              <Text style={styles.jobName(selectedPopularJobs, item)} numberOfLines={5}>{item.title}</Text>
               <Text style={styles.companyName} numberOfLines={2}>{item.category}</Text>
             </View>
 
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     flexWrap: 'nowrap',
   }),
   amount: {
-    width: 110,
+    width: '100%',
     marginBottom: 5,
   },
 
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: selectedPopularJobs === item.popularjobs ? 'bold' : 'normal',
     color: selectedPopularJobs === item.popularjobs? '#0D0D26' : '#0D0D26',
+    // backgroundColor: 'black'
   }),
   companyName: {
     fontSize: 13,

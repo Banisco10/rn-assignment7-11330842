@@ -8,28 +8,20 @@ import axios from 'axios';
 
 
 export default function Productlist() {
-
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true)
 
 
   const fetchProduct = async() => {
     axios.get('https://fakestoreapi.com/products').then((res) => {
-      setData(res.data);
-      
+      setData(res.data);    
+      console.log(data)
     })
   } 
-
-
-  const [selectedProductlist, setselectedProductlist] = useState(null);
-  const [products, setProducts] = useState([]
-    
-  )
-  const [loading, setLoading] = useState(true)
-
-
   useEffect(() => {
     fetchProduct()
   }, [])
+
 
 
   const addToCart = async(product) => {

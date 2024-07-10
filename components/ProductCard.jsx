@@ -9,7 +9,7 @@ const ProductCard = ( { item, selectedPopularJobs, removeFromCart }) => {
 
       <View style={styles.descriptionsContainer}>
         <View style={styles.amount}>
-        <Text style={styles.jobName(selectedPopularJobs, item)} numberOfLines={1}>{item.title}</Text>
+        <Text style={styles.jobName(selectedPopularJobs, item)} numberOfLines={5}>{item.title}</Text>
         <Text style={styles.companyName} numberOfLines={1}>{item.category}</Text>
         <Text style={styles.prize} numberOfLines={1}>${item.price}</Text>
         </View>
